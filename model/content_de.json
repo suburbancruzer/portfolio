@@ -113,6 +113,13 @@
       "initials": "HH",
       "period": "2021",
       "description": "Fiori MES Apps basierend auf SAP PP für Papiermaschinen (Rollenschneider, Papiermaschine)"
+    },
+    {
+      "client": "HOERBIGER Holding GmbH",
+      "logo": "/img/logos/hoerbiger.com.png",
+      "initials": "HH",
+      "period": "2025",
+      "description": "Processes & Forms Entwicklung und Web Dynpro ABAP Anpassungen (4-Augen-Prinzip, Genehmigungsworkflows)."
     }
   ],
   "projects_earlier": [
@@ -139,7 +146,7 @@
     },
     {
       "client": "CNT Management Consulting",
-      "logo": "/img/logos/cnt.at.png",
+      "logo": "/img/logos/cnt-online.com.png",
       "initials": "CM",
       "period": "2019",
       "description": "Interne Fiori-App zur CATS-Erfassung mit integrierter Kapazitätsplanung"
