@@ -15,9 +15,7 @@
         "Org Management",
         "ESS / MSS",
         "Processes & Forms",
-        "CATS",
-        "Payroll (PY)",
-        "Time Management (PT)"
+        "CATS"
       ]
     },
     {
@@ -33,7 +31,7 @@
         "Adobe Forms",
         "SAP BAS",
         "Fiori Launchpad",
-        "SAP Build"
+        "SAP Fiori Solution Architect"
       ]
     },
     {
@@ -43,8 +41,7 @@
         "Product Owner",
         "Agile Coach",
         "Design Thinking",
-        "UX Consulting",
-        "SAP Fiori Solution Architect"
+        "UX Consulting"
       ]
     }
   ],
