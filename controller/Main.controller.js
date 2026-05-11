@@ -4,12 +4,14 @@ sap.ui.define([
     "sap/ui/model/resource/ResourceModel",
     "sap/m/ObjectListItem",
     "sap/m/ObjectAttribute",
-    "sap/m/Button"
-], function (Controller, JSONModel, ResourceModel, ObjectListItem, ObjectAttribute, Button) {
+    "sap/m/Button",
+    "sap/m/FlexBox",
+    "sap/uxap/ObjectPageSubSection"
+], function (Controller, JSONModel, ResourceModel, ObjectListItem, ObjectAttribute, Button, FlexBox, ObjectPageSubSection) {
     "use strict";
 
-    var SKILL_CATEGORIES = ["hcm", "fiori", "agile"];
     var LIST_IDS = ["careerList", "projectList", "educationList", "certList"];
+    var SKILL_COLORS = ["pmSkillTag--1", "pmSkillTag--2", "pmSkillTag--3", "pmSkillTag--4", "pmSkillTag--5"];
 
     return Controller.extend("mosboeck.portfolio.controller.Main", {
 
@@ -83,7 +85,7 @@ sap.ui.define([
                     type: "Inactive"
                 })
             );
-            this._renderSkillTags(oData.skills || {});
+            this._renderSkillCategories(oData.skills || []);
             this._notifyObjectPageOnAllListsReady();
         },
 
@@ -118,19 +120,24 @@ sap.ui.define([
             });
         },
 
-        // ── Skill chips ──────────────────────────────────────────────────
-        _renderSkillTags: function (oSkills) {
-            SKILL_CATEGORIES.forEach(function (sCategory) {
-                var oBox = this.getView().byId(sCategory + "TagBox");
-                if (!oBox) { return; }
-                oBox.destroyItems();
-                (oSkills[sCategory] || []).forEach(function (sSkill) {
+        // ── Skill categories (dynamic) ───────────────────────────────────
+        _renderSkillCategories: function (aSkills) {
+            var oSection = this.getView().byId("sectionCompetencies");
+            if (!oSection) { return; }
+            oSection.destroySubSections();
+            (aSkills || []).forEach(function (oCat, iIdx) {
+                var sColorClass = SKILL_COLORS[iIdx % SKILL_COLORS.length];
+                var oBox = new FlexBox({ wrap: "Wrap" }).addStyleClass("pmTagBox");
+                (oCat.items || []).forEach(function (sSkill) {
                     oBox.addItem(
                         new Button({ text: sSkill, type: "Ghost" })
-                            .addStyleClass("pmSkillTag pmSkillTag--" + sCategory)
+                            .addStyleClass("pmSkillTag " + sColorClass)
                     );
                 });
-            }, this);
+                oSection.addSubSection(
+                    new ObjectPageSubSection({ title: oCat.category, blocks: [oBox] })
+                );
+            });
         },
 
         // ── Contact ──────────────────────────────────────────────────────

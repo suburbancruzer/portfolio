@@ -114,6 +114,16 @@ function pageToEducation(p) {
         field_de:       getRichText(pr.field_de)
     };
 }
+function pageToSkill(p) {
+    const pr = p.properties;
+    return {
+        name:           getRichText(pr.Name || pr.name),
+        category_en:    getRichText(pr.category_en),
+        category_de:    getRichText(pr.category_de),
+        category_order: getNumber(pr.category_order),
+        item_order:     getNumber(pr.item_order)
+    };
+}
 function pageToCert(p) {
     const pr = p.properties;
     return {
@@ -166,7 +176,18 @@ function pageToProfile(p) {
 
 // ── Build content JSON from fetched rows ──────────────────────────────────────
 
-function buildContent(lang, profile, career, projects, education, certs) {
+function buildSkillCategories(lang, skills) {
+    const catKey = "category_" + lang;
+    const map = {};
+    for (const s of skills.sort((a,b) => a.category_order - b.category_order || a.item_order - b.item_order)) {
+        const cat = s[catKey] || s.category_en;
+        if (!map[cat]) map[cat] = { category: cat, items: [] };
+        map[cat].items.push(s.name);
+    }
+    return Object.values(map);
+}
+
+function buildContent(lang, profile, career, projects, education, certs, skills) {
     const l = lang; // "en" or "de"
     return {
         name:               profile.name,
@@ -177,11 +198,7 @@ function buildContent(lang, profile, career, projects, education, certs) {
         location:           profile["location_" + l],
         email:              profile.email,
         profileText:        profile["profileText_" + l],
-        skills: {
-            hcm:   profile.skills_hcm.split(",").map(s => s.trim()).filter(Boolean),
-            fiori: profile.skills_fiori.split(",").map(s => s.trim()).filter(Boolean),
-            agile: profile.skills_agile.split(",").map(s => s.trim()).filter(Boolean)
-        },
+        skills:             buildSkillCategories(l, skills),
         career: career.sort((a,b) => a.order-b.order).map(c => ({
             year:        c["year_" + l] || c.year_en,
             role:        c["role_" + l],
@@ -245,10 +262,7 @@ async function generateDocx(content, lang, outPath) {
 
         // Skills
         h2(lang === "de" ? "Kompetenzen" : "Competencies"),
-        body("SAP HCM: " + content.skills.hcm.join(", ")),
-        body("Fiori & ABAP: " + content.skills.fiori.join(", ")),
-        body((lang === "de" ? "Agile & UX: " : "Agile & UX: ") + content.skills.agile.join(", ")),
-        spacer(),
+        ...content.skills.flatMap(cat => [body(cat.category + ": " + cat.items.join(", ")), spacer()]),
 
         // Career
         h2(lang === "de" ? "Karriere" : "Career"),
@@ -507,12 +521,13 @@ async function generate() {
 
     console.log("Fetching from Notion…");
 
-    const [profilePages, careerPages, projectPages, educationPages, certPages] = await Promise.all([
+    const [profilePages, careerPages, projectPages, educationPages, certPages, skillPages] = await Promise.all([
         queryDatabase(dbIds.profile),
         queryDatabase(dbIds.career),
         queryDatabase(dbIds.projects),
         queryDatabase(dbIds.education),
-        queryDatabase(dbIds.certifications)
+        queryDatabase(dbIds.certifications),
+        queryDatabase(dbIds.skills)
     ]);
 
     const profile   = pageToProfile(profilePages[0]);
@@ -520,9 +535,10 @@ async function generate() {
     const projects  = projectPages.map(pageToProject);
     const education = educationPages.map(pageToEducation);
     const certs     = certPages.map(pageToCert);
+    const skills    = skillPages.map(pageToSkill);
 
-    const contentEn = buildContent("en", profile, career, projects, education, certs);
-    const contentDe = buildContent("de", profile, career, projects, education, certs);
+    const contentEn = buildContent("en", profile, career, projects, education, certs, skills);
+    const contentDe = buildContent("de", profile, career, projects, education, certs, skills);
 
     // Write JSON
     const modelDir = path.join(ROOT, "model");

@@ -7,39 +7,48 @@
   "location": "Vienna & surroundings · Remote",
   "email": "peter@mosboeck.net",
   "profileText": "Senior SAP Solution Consultant with 15+ years of experience — specialized in SAP HCM, Fiori/SAPUI5, and ABAP. I combine deep technical expertise with agile project delivery and user-centered design. Freelancer since 2024, offering end-to-end solutions from requirements engineering and architecture through to implementation and go-live.",
-  "skills": {
-    "hcm": [
-      "SAP HCM",
-      "Personnel Administration",
-      "Org Management",
-      "ESS / MSS",
-      "Processes & Forms",
-      "CATS",
-      "Payroll (PY)",
-      "Time Management (PT)"
-    ],
-    "fiori": [
-      "SAPUI5",
-      "Fiori Elements",
-      "OData",
-      "RAP",
-      "CDS",
-      "Clean ABAP",
-      "Business Workflow",
-      "Adobe Forms",
-      "SAP BAS",
-      "Fiori Launchpad",
-      "SAP Build"
-    ],
-    "agile": [
-      "Scrum Master",
-      "Product Owner",
-      "Agile Coach",
-      "Design Thinking",
-      "UX Consulting",
-      "SAP Fiori Solution Architect"
-    ]
-  },
+  "skills": [
+    {
+      "category": "SAP HCM",
+      "items": [
+        "SAP HCM",
+        "Personnel Administration",
+        "Org Management",
+        "ESS / MSS",
+        "Processes & Forms",
+        "CATS",
+        "Payroll (PY)",
+        "Time Management (PT)"
+      ]
+    },
+    {
+      "category": "Fiori & ABAP",
+      "items": [
+        "SAPUI5",
+        "Fiori Elements",
+        "OData",
+        "RAP",
+        "CDS",
+        "Clean ABAP",
+        "Business Workflow",
+        "Adobe Forms",
+        "SAP BAS",
+        "Fiori Launchpad",
+        "SAP Build"
+      ]
+    },
+    {
+      "category": "Agile & UX",
+      "items": [
+        "Scrum Master",
+        "Product Owner",
+        "Agile Coach",
+        "Design Thinking",
+        "UX Consulting",
+        "SAP Fiori Solution Architect"
+      ]
+    }
+  ],
   "career": [
     {
       "year": "2024 – present",

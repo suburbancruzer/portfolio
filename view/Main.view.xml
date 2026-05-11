@@ -96,20 +96,8 @@
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
 
-                    <!-- Competencies -->
-                    <uxap:ObjectPageSection title="{i18n>section.competencies}" id="sectionCompetencies">
-                        <uxap:subSections>
-                            <uxap:ObjectPageSubSection title="{i18n>subsection.hcm}">
-                                <FlexBox wrap="Wrap" id="hcmTagBox" class="pmTagBox"/>
-                            </uxap:ObjectPageSubSection>
-                            <uxap:ObjectPageSubSection title="{i18n>subsection.fiori}">
-                                <FlexBox wrap="Wrap" id="fioriTagBox" class="pmTagBox"/>
-                            </uxap:ObjectPageSubSection>
-                            <uxap:ObjectPageSubSection title="{i18n>subsection.agile}">
-                                <FlexBox wrap="Wrap" id="agileTagBox" class="pmTagBox"/>
-                            </uxap:ObjectPageSubSection>
-                        </uxap:subSections>
-                    </uxap:ObjectPageSection>
+                    <!-- Competencies — SubSections rendered dynamically by controller -->
+                    <uxap:ObjectPageSection title="{i18n>section.competencies}" id="sectionCompetencies"/>
 
                     <!-- Career -->
                     <uxap:ObjectPageSection title="{i18n>section.career}" id="sectionCareer">

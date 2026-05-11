@@ -75,29 +75,21 @@
     line-height: 2rem !important;
 }
 
-/* HCM — blue */
-.pmSkillTag--hcm .sapMBtnInner {
-    background-color: #0064d9 !important;
-    border-color: #0064d9 !important;
-    color: #fff !important;
-}
-.pmSkillTag--hcm .sapMBtnContent { color: #fff !important; }
+/* Category colors — cycled by index (1–5) */
+.pmSkillTag--1 .sapMBtnInner { background-color: #0064d9 !important; border-color: #0064d9 !important; color: #fff !important; }
+.pmSkillTag--1 .sapMBtnContent { color: #fff !important; }
 
-/* Fiori — green */
-.pmSkillTag--fiori .sapMBtnInner {
-    background-color: #188918 !important;
-    border-color: #188918 !important;
-    color: #fff !important;
-}
-.pmSkillTag--fiori .sapMBtnContent { color: #fff !important; }
+.pmSkillTag--2 .sapMBtnInner { background-color: #188918 !important; border-color: #188918 !important; color: #fff !important; }
+.pmSkillTag--2 .sapMBtnContent { color: #fff !important; }
 
-/* Agile — purple */
-.pmSkillTag--agile .sapMBtnInner {
-    background-color: #6912ae !important;
-    border-color: #6912ae !important;
-    color: #fff !important;
-}
-.pmSkillTag--agile .sapMBtnContent { color: #fff !important; }
+.pmSkillTag--3 .sapMBtnInner { background-color: #6912ae !important; border-color: #6912ae !important; color: #fff !important; }
+.pmSkillTag--3 .sapMBtnContent { color: #fff !important; }
+
+.pmSkillTag--4 .sapMBtnInner { background-color: #c0341d !important; border-color: #c0341d !important; color: #fff !important; }
+.pmSkillTag--4 .sapMBtnContent { color: #fff !important; }
+
+.pmSkillTag--5 .sapMBtnInner { background-color: #0f5c6e !important; border-color: #0f5c6e !important; color: #fff !important; }
+.pmSkillTag--5 .sapMBtnContent { color: #fff !important; }
 
 /* ── Contact Section ────────────────────────────────────────────── */
 .pmContactPanel .sapMPanelContent {
