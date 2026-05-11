@@ -102,13 +102,54 @@ function pageToProject(p) {
         order:          getNumber(pr.order),
         current:        pr.current?.checkbox ?? false,
         client,
-        logo:           logo_domain ? "https://logo.clearbit.com/" + logo_domain : "",
+        logo_domain,
         initials:       projectInitials(client),
         period_en:      getRichText(pr.period_en),
         period_de:      getRichText(pr.period_de),
         description_en: getRichText(pr.description_en),
         description_de: getRichText(pr.description_de)
     };
+}
+
+// ── Logo sync: download missing logos from Google favicon API ─────────────────
+
+function downloadLogo(domain, destPath) {
+    return new Promise((resolve, reject) => {
+        function get(url, hops) {
+            if (hops <= 0) return reject(new Error("Too many redirects"));
+            https.get(url, res => {
+                if ((res.statusCode === 301 || res.statusCode === 302) && res.headers.location) {
+                    res.resume();
+                    return get(res.headers.location, hops - 1);
+                }
+                if (res.statusCode !== 200) { res.resume(); return reject(new Error("HTTP " + res.statusCode)); }
+                const out = fs.createWriteStream(destPath);
+                res.pipe(out);
+                out.on("finish", resolve);
+                out.on("error", reject);
+            }).on("error", reject);
+        }
+        get("https://www.google.com/s2/favicons?domain=" + domain + "&sz=128", 5);
+    });
+}
+
+async function syncLogos(projects) {
+    const logoDir = path.join(ROOT, "img", "logos");
+    if (!fs.existsSync(logoDir)) fs.mkdirSync(logoDir, { recursive: true });
+    let downloaded = 0;
+    for (const p of projects) {
+        if (!p.logo_domain) continue;
+        const dest = path.join(logoDir, p.logo_domain + ".png");
+        if (fs.existsSync(dest)) continue;
+        try {
+            await downloadLogo(p.logo_domain, dest);
+            console.log("  ✓ logo: " + p.logo_domain);
+            downloaded++;
+        } catch (e) {
+            console.warn("  ✗ logo failed: " + p.logo_domain + " (" + e.message + ")");
+        }
+    }
+    if (downloaded === 0) console.log("  ✓ logos up to date");
 }
 function pageToEducation(p) {
     const pr = p.properties;
@@ -216,14 +257,14 @@ function buildContent(lang, profile, career, projects, education, certs, skills)
         })),
         projects_current: projects.filter(p => p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo,
+            logo:        p.logo_domain ? "img/logos/" + p.logo_domain + ".png" : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
         })),
         projects_earlier: projects.filter(p => !p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo,
+            logo:        p.logo_domain ? "img/logos/" + p.logo_domain + ".png" : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
@@ -555,6 +596,8 @@ async function generate() {
     const certs     = certPages.map(pageToCert);
     const skills    = skillPages.map(pageToSkill);
 
+    await syncLogos(projects);
+
     const contentEn = buildContent("en", profile, career, projects, education, certs, skills);
     const contentDe = buildContent("de", profile, career, projects, education, certs, skills);
 
@@ -584,7 +627,7 @@ async function deploy() {
     await generate();
     console.log("\nDeploying…");
     try {
-        execSync("git add model/content_en.json model/content_de.json", { cwd: ROOT, stdio: "inherit" });
+        execSync("git add model/content_en.json model/content_de.json img/logos/", { cwd: ROOT, stdio: "inherit" });
         execSync('git commit -m "chore: regenerate content from Notion"', { cwd: ROOT, stdio: "inherit" });
         execSync("git push", { cwd: ROOT, stdio: "inherit" });
         console.log("✓ Deployed — GitHub Actions will update the live site.");
