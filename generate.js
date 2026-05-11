@@ -120,6 +120,26 @@ function pageToCert(p) {
         title: getRichText(pr.title || pr.Name)
     };
 }
+const STATUS_MAP = {
+    available: { en: "Available for projects", de: "Verfügbar für Projekte", state: "Success" },
+    limited:   { en: "Limited availability",   de: "Geringe Verfügbarkeit",  state: "Warning" },
+    booked:    { en: "Fully booked",           de: "Ausgelastet",            state: "Error"   }
+};
+
+const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+
+function availabilityText(status, availableFrom, lang) {
+    const map = STATUS_MAP[status] || STATUS_MAP.available;
+    if (status === "booked" && availableFrom) {
+        const d = new Date(availableFrom);
+        const months = lang === "de" ? MONTHS_DE : MONTHS_EN;
+        const label = months[d.getUTCMonth()] + " " + d.getUTCFullYear();
+        return lang === "de" ? "Verfügbar ab " + label : "Available from " + label;
+    }
+    return map[lang] || map.en;
+}
+
 function pageToProfile(p) {
     const pr = p.properties;
     return {
@@ -136,7 +156,9 @@ function pageToProfile(p) {
         profileText_de:  getRichText(pr.profileText_de),
         skills_hcm:      getRichText(pr.skills_hcm),
         skills_fiori:    getRichText(pr.skills_fiori),
-        skills_agile:    getRichText(pr.skills_agile)
+        skills_agile:    getRichText(pr.skills_agile),
+        status:          pr.status?.select?.name || "available",
+        available_from:  pr.available_from?.date?.start || null
     };
 }
 
@@ -145,13 +167,14 @@ function pageToProfile(p) {
 function buildContent(lang, profile, career, projects, education, certs) {
     const l = lang; // "en" or "de"
     return {
-        name:        profile.name,
-        title:       profile.title,
-        subtitle:    profile["subtitle_" + l],
-        availability:profile["availability_" + l],
-        location:    profile["location_" + l],
-        email:       profile.email,
-        profileText: profile["profileText_" + l],
+        name:               profile.name,
+        title:              profile.title,
+        subtitle:           profile["subtitle_" + l],
+        availability:       availabilityText(profile.status, profile.available_from, l),
+        availabilityState:  (STATUS_MAP[profile.status] || STATUS_MAP.available).state,
+        location:           profile["location_" + l],
+        email:              profile.email,
+        profileText:        profile["profileText_" + l],
         skills: {
             hcm:   profile.skills_hcm.split(",").map(s => s.trim()).filter(Boolean),
             fiori: profile.skills_fiori.split(",").map(s => s.trim()).filter(Boolean),

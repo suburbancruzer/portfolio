@@ -23,9 +23,8 @@
                         <uxap:expandedHeading>
                             <FlexBox alignItems="Center" wrap="Wrap" class="pmHeaderFlex">
                                 <Avatar
-                                    initials="PM"
+                                    src="img/profile.jpg"
                                     displaySize="L"
-                                    backgroundColor="Accent6"
                                     class="sapUiSmallMarginEnd"/>
                                 <FlexBox direction="Column">
                                     <Title text="{content>/name}" level="H1" class="pmName"/>
@@ -49,7 +48,7 @@
                         </uxap:expandedHeading>
                         <uxap:snappedHeading>
                             <FlexBox alignItems="Center">
-                                <Avatar initials="PM" displaySize="S" backgroundColor="Accent6" class="sapUiTinyMarginEnd"/>
+                                <Avatar src="img/profile.jpg" displaySize="S" class="sapUiTinyMarginEnd"/>
                                 <Title text="{content>/name}" level="H3"/>
                             </FlexBox>
                         </uxap:snappedHeading>
@@ -76,7 +75,7 @@
                         </FlexBox>
                         <FlexBox direction="Column" class="pmFact sapUiMediumMarginEnd">
                             <Label text="{i18n>lbl.availability}" design="Bold"/>
-                            <ObjectStatus text="{content>/availability}" state="Success" inverted="true"/>
+                            <ObjectStatus text="{content>/availability}" state="{content>/availabilityState}" inverted="true"/>
                         </FlexBox>
                         <FlexBox direction="Column" class="pmFact">
                             <Label text="{i18n>lbl.email}" design="Bold"/>
