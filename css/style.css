@@ -1,0 +1,125 @@
+/* ── Header ────────────────────────────────────────────────────── */
+.pmHeaderFlex {
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+}
+
+.pmName .sapMTitle {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+}
+
+.pmJobTitle {
+    font-size: 1rem;
+    color: var(--sapTextColor, #32363a);
+    margin-top: 0.15rem;
+}
+
+.pmChips {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.pmStatusChip {
+    margin-right: 0.25rem;
+}
+
+.pmLangBtn {
+    min-width: 3.5rem !important;
+    font-weight: 600 !important;
+}
+
+/* ── Facts Bar ──────────────────────────────────────────────────── */
+.pmFactsBar {
+    flex-wrap: wrap;
+}
+
+.pmFact {
+    gap: 0.15rem;
+    min-width: 9rem;
+}
+
+/* ── Profile Text ───────────────────────────────────────────────── */
+.pmProfileText {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    max-width: 50rem;
+    color: var(--sapTextColor, #32363a);
+}
+
+/* ── Skill Tags ─────────────────────────────────────────────────── */
+.pmTagBox {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+}
+
+/* Outer button container */
+.pmSkillTag {
+    border-radius: 1.5rem !important;
+    pointer-events: none;
+    min-width: auto !important;
+}
+
+/* Inner button element — where UI5 sets background/border/color */
+.pmSkillTag .sapMBtnInner {
+    border-radius: 1.5rem !important;
+    height: 2rem !important;
+    padding: 0 0.85rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    min-width: auto !important;
+}
+
+.pmSkillTag .sapMBtnContent {
+    line-height: 2rem !important;
+}
+
+/* HCM — blue */
+.pmSkillTag--hcm .sapMBtnInner {
+    background-color: #0064d9 !important;
+    border-color: #0064d9 !important;
+    color: #fff !important;
+}
+.pmSkillTag--hcm .sapMBtnContent { color: #fff !important; }
+
+/* Fiori — green */
+.pmSkillTag--fiori .sapMBtnInner {
+    background-color: #188918 !important;
+    border-color: #188918 !important;
+    color: #fff !important;
+}
+.pmSkillTag--fiori .sapMBtnContent { color: #fff !important; }
+
+/* Agile — purple */
+.pmSkillTag--agile .sapMBtnInner {
+    background-color: #6912ae !important;
+    border-color: #6912ae !important;
+    color: #fff !important;
+}
+.pmSkillTag--agile .sapMBtnContent { color: #fff !important; }
+
+/* ── Contact Section ────────────────────────────────────────────── */
+.pmContactPanel .sapMPanelContent {
+    padding: 1.5rem;
+}
+
+.pmContactInfo {
+    gap: 0.5rem;
+}
+
+.pmContactIcon {
+    color: var(--sapHighlightColor, #0064d9);
+    font-size: 1rem;
+}
+
+.pmContactBtn {
+    align-self: center;
+}
+
+/* ── Responsive ─────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .pmName .sapMTitle { font-size: 1.3rem !important; }
+    .pmFact { min-width: 7rem; }
+    .pmContactPanel .sapMPanelContent { padding: 1rem; }
+}

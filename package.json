@@ -1,0 +1,14 @@
+{
+  "name": "mosboeck-portfolio",
+  "version": "2.0.0",
+  "description": "Peter Mosböck — SAP Consultant Portfolio",
+  "type": "commonjs",
+  "scripts": {
+    "start":    "node server.js",
+    "generate": "node generate.js",
+    "publish":  "node generate.js --deploy"
+  },
+  "dependencies": {
+    "docx": "^9.0.0"
+  }
+}

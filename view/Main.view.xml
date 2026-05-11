@@ -1,0 +1,178 @@
+<mvc:View
+    controllerName="mosboeck.portfolio.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:uxap="sap.uxap"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <!-- App uses position:fixed to fill the viewport — required for ObjectPageLayout scrolling -->
+    <App id="mainApp">
+        <pages>
+            <uxap:ObjectPageLayout
+                id="objectPage"
+                showTitleInHeaderContent="true"
+                alwaysShowContentHeader="false"
+                preserveHeaderStateOnScroll="false"
+                backgroundDesignAnchorBar="Transparent"
+                enableLazyLoading="false">
+
+                <!-- ═══ HEADER ═══ -->
+                <uxap:headerTitle>
+                    <uxap:ObjectPageDynamicHeaderTitle>
+                        <uxap:expandedHeading>
+                            <FlexBox alignItems="Center" wrap="Wrap" class="pmHeaderFlex">
+                                <Avatar
+                                    initials="PM"
+                                    displaySize="L"
+                                    backgroundColor="Accent6"
+                                    class="sapUiSmallMarginEnd"/>
+                                <FlexBox direction="Column">
+                                    <Title text="{content>/name}" level="H1" class="pmName"/>
+                                    <Text text="{content>/title}" class="pmJobTitle"/>
+                                    <FlexBox wrap="Wrap" class="pmChips sapUiTinyMarginTop">
+                                        <ObjectStatus
+                                            text="{i18n>chip.freelancer}"
+                                            state="Success"
+                                            class="pmStatusChip"/>
+                                        <ObjectStatus
+                                            text="{i18n>chip.experience}"
+                                            state="Information"
+                                            class="pmStatusChip"/>
+                                        <ObjectStatus
+                                            text="{i18n>chip.scrum}"
+                                            state="None"
+                                            class="pmStatusChip"/>
+                                    </FlexBox>
+                                </FlexBox>
+                            </FlexBox>
+                        </uxap:expandedHeading>
+                        <uxap:snappedHeading>
+                            <FlexBox alignItems="Center">
+                                <Avatar initials="PM" displaySize="S" backgroundColor="Accent6" class="sapUiTinyMarginEnd"/>
+                                <Title text="{content>/name}" level="H3"/>
+                            </FlexBox>
+                        </uxap:snappedHeading>
+                        <uxap:actions>
+                            <Button
+                                text="{i18n>btn.contact}"
+                                type="Emphasized"
+                                press="onContactPress"/>
+                            <Button
+                                text="{i18n>btn.lang}"
+                                type="Default"
+                                press="onToggleLanguage"
+                                class="pmLangBtn"/>
+                        </uxap:actions>
+                    </uxap:ObjectPageDynamicHeaderTitle>
+                </uxap:headerTitle>
+
+                <!-- ═══ HEADER CONTENT ═══ -->
+                <uxap:headerContent>
+                    <FlexBox wrap="Wrap" class="pmFactsBar">
+                        <FlexBox direction="Column" class="pmFact sapUiMediumMarginEnd">
+                            <Label text="{i18n>lbl.location}" design="Bold"/>
+                            <Text text="{content>/location}"/>
+                        </FlexBox>
+                        <FlexBox direction="Column" class="pmFact sapUiMediumMarginEnd">
+                            <Label text="{i18n>lbl.availability}" design="Bold"/>
+                            <ObjectStatus text="{content>/availability}" state="Success" inverted="true"/>
+                        </FlexBox>
+                        <FlexBox direction="Column" class="pmFact">
+                            <Label text="{i18n>lbl.email}" design="Bold"/>
+                            <Link text="{content>/email}" href="mailto:peter@mosboeck.net"/>
+                        </FlexBox>
+                    </FlexBox>
+                </uxap:headerContent>
+
+                <!-- ═══ SECTIONS ═══ -->
+                <uxap:sections>
+
+                    <!-- Profile -->
+                    <uxap:ObjectPageSection title="{i18n>section.profile}" id="sectionProfile">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <Text text="{content>/profileText}" class="pmProfileText" wrapping="true"/>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- Competencies -->
+                    <uxap:ObjectPageSection title="{i18n>section.competencies}" id="sectionCompetencies">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.hcm}">
+                                <FlexBox wrap="Wrap" id="hcmTagBox" class="pmTagBox"/>
+                            </uxap:ObjectPageSubSection>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.fiori}">
+                                <FlexBox wrap="Wrap" id="fioriTagBox" class="pmTagBox"/>
+                            </uxap:ObjectPageSubSection>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.agile}">
+                                <FlexBox wrap="Wrap" id="agileTagBox" class="pmTagBox"/>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- Career -->
+                    <uxap:ObjectPageSection title="{i18n>section.career}" id="sectionCareer">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <List id="careerList" showSeparators="Inner"/>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- Projects -->
+                    <uxap:ObjectPageSection title="{i18n>section.projects}" id="sectionProjects">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <List id="projectList" showSeparators="Inner"/>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- Education -->
+                    <uxap:ObjectPageSection title="{i18n>section.education}" id="sectionEducation">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.education}">
+                                <List id="educationList" showSeparators="Inner"/>
+                            </uxap:ObjectPageSubSection>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.certifications}">
+                                <List id="certList" showSeparators="Inner"/>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                    <!-- Contact -->
+                    <uxap:ObjectPageSection title="{i18n>section.contact}" id="sectionContact">
+                        <uxap:subSections>
+                            <uxap:ObjectPageSubSection>
+                                <Panel class="pmContactPanel" backgroundDesign="Solid">
+                                    <FlexBox wrap="Wrap" justifyContent="SpaceBetween" alignItems="Center">
+                                        <FlexBox direction="Column" class="pmContactInfo">
+                                            <Title text="{content>/name}" level="H3" class="sapUiTinyMarginBottom"/>
+                                            <Text text="{content>/title}" class="sapUiSmallMarginBottom"/>
+                                            <FlexBox alignItems="Center" class="sapUiTinyMarginBottom">
+                                                <core:Icon src="sap-icon://map" class="sapUiTinyMarginEnd pmContactIcon"/>
+                                                <Text text="{content>/location}"/>
+                                            </FlexBox>
+                                            <FlexBox alignItems="Center">
+                                                <core:Icon src="sap-icon://email" class="sapUiTinyMarginEnd pmContactIcon"/>
+                                                <Link text="{content>/email}" href="mailto:peter@mosboeck.net"/>
+                                            </FlexBox>
+                                        </FlexBox>
+                                        <Button
+                                            text="{i18n>btn.contact}"
+                                            type="Emphasized"
+                                            press="onContactPress"
+                                            class="pmContactBtn sapUiSmallMarginTop"/>
+                                    </FlexBox>
+                                </Panel>
+                            </uxap:ObjectPageSubSection>
+                        </uxap:subSections>
+                    </uxap:ObjectPageSection>
+
+                </uxap:sections>
+            </uxap:ObjectPageLayout>
+        </pages>
+    </App>
+</mvc:View>
