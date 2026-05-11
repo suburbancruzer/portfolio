@@ -77,6 +77,46 @@
   ],
   "projects": [
     {
+      "client": "RHI",
+      "period": "2012 – 2016",
+      "description": "Diverse Anpassungen und Neuentwicklungen im HR ESS/MSS"
+    },
+    {
+      "client": "Wiener Gebietskrankenkasse",
+      "period": "2011 – 2014",
+      "description": "Überstundengenehmigung ESS/MSS; Anbindung an die SV Briefbox"
+    },
+    {
+      "client": "Telekom Austria / A1",
+      "period": "2008 – 2012",
+      "description": "PeroLo — Performanceoptimierung Logistik, Merger (SD, PS, ALE, MM)"
+    },
+    {
+      "client": "APG",
+      "period": "2020",
+      "description": "Processes & Forms (ESS/MSS) – Release 1"
+    },
+    {
+      "client": "RWA",
+      "period": "2010 – 2012",
+      "description": "Administration von Rohstoffkursen zur Bewertung von gehandelten Materialien"
+    },
+    {
+      "client": "Boehringer Ingelheim Austria",
+      "period": "2010 – 2013",
+      "description": "SAP BDE Integration, TMnet Schnittstelle, Russische Formulare, WMPlus"
+    },
+    {
+      "client": "Stadt Wien – WRKWS",
+      "period": "2016 – 2017",
+      "description": "Einführung SAP HCM S/4 HANA ESS/MSS auf Basis HR Renewal"
+    },
+    {
+      "client": "CNT Management Consulting",
+      "period": "2019",
+      "description": "Interne Fiori-App zur CATS-Erfassung mit integrierter Kapazitätsplanung"
+    },
+    {
       "client": "Boehringer Ingelheim GmbH",
       "period": "2024 – heute",
       "description": "Globaler CATS Rollout Deutschland — Solution Architect & Process Expert"
