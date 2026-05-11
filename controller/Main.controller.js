@@ -10,7 +10,7 @@ sap.ui.define([
 ], function (Controller, JSONModel, ResourceModel, ObjectListItem, ObjectAttribute, Button, FlexBox, ObjectPageSubSection) {
     "use strict";
 
-    var LIST_IDS = ["careerList", "projectList", "educationList", "certList"];
+    var LIST_IDS = ["careerList", "projectCurrentList", "projectEarlierList", "educationList", "certList"];
     var SKILL_COLORS = ["pmSkillTag--1", "pmSkillTag--2", "pmSkillTag--3", "pmSkillTag--4", "pmSkillTag--5"];
 
     return Controller.extend("mosboeck.portfolio.controller.Main", {
@@ -57,14 +57,6 @@ sap.ui.define([
                     title: "{content>role}",
                     intro: "{content>year}",
                     number: "{content>company}",
-                    type: "Inactive",
-                    attributes: [ new ObjectAttribute({ text: "{content>description}" }) ]
-                })
-            );
-            this._bindList("projectList", "content>/projects",
-                new ObjectListItem({
-                    title: "{content>client}",
-                    intro: "{content>period}",
                     type: "Inactive",
                     attributes: [ new ObjectAttribute({ text: "{content>description}" }) ]
                 })

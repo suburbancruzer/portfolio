@@ -94,6 +94,7 @@ function pageToProject(p) {
     const pr = p.properties;
     return {
         order:          getNumber(pr.order),
+        current:        pr.current?.checkbox ?? false,
         client:         getRichText(pr.client),
         period_en:      getRichText(pr.period_en),
         period_de:      getRichText(pr.period_de),
@@ -205,7 +206,12 @@ function buildContent(lang, profile, career, projects, education, certs, skills)
             company:     c["company_" + l] || c.company_en,
             description: c["description_" + l]
         })),
-        projects: projects.sort((a,b) => a.order-b.order).map(p => ({
+        projects_current: projects.filter(p => p.current).sort((a,b) => a.order-b.order).map(p => ({
+            client:      p.client,
+            period:      p["period_" + l],
+            description: p["description_" + l]
+        })),
+        projects_earlier: projects.filter(p => !p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
             period:      p["period_" + l],
             description: p["description_" + l]
@@ -274,7 +280,7 @@ async function generateDocx(content, lang, outPath) {
 
         // Projects
         h2(lang === "de" ? "Projekterfahrung" : "Project Experience"),
-        ...content.projects.flatMap(p => [
+        ...[...content.projects_current, ...content.projects_earlier].flatMap(p => [
             body(p.period + " | " + p.client, { bold: true }),
             body(p.description),
             spacer()

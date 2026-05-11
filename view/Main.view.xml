@@ -111,8 +111,31 @@
                     <!-- Projects -->
                     <uxap:ObjectPageSection title="{i18n>section.projects}" id="sectionProjects">
                         <uxap:subSections>
-                            <uxap:ObjectPageSubSection>
-                                <List id="projectList" showSeparators="Inner"/>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.projects.current}">
+                                <List id="projectCurrentList" showSeparators="Inner"
+                                    items="{content>/projects_current}">
+                                    <ObjectListItem
+                                        title="{content>client}"
+                                        intro="{content>period}"
+                                        type="Inactive">
+                                        <attributes>
+                                            <ObjectAttribute text="{content>description}"/>
+                                        </attributes>
+                                    </ObjectListItem>
+                                </List>
+                            </uxap:ObjectPageSubSection>
+                            <uxap:ObjectPageSubSection title="{i18n>subsection.projects.earlier}">
+                                <List id="projectEarlierList" showSeparators="Inner"
+                                    items="{content>/projects_earlier}">
+                                    <ObjectListItem
+                                        title="{content>client}"
+                                        intro="{content>period}"
+                                        type="Inactive">
+                                        <attributes>
+                                            <ObjectAttribute text="{content>description}"/>
+                                        </attributes>
+                                    </ObjectListItem>
+                                </List>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>
                     </uxap:ObjectPageSection>
