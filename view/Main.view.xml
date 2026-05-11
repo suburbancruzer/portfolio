@@ -118,6 +118,7 @@
                                         <FlexBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom">
                                             <Avatar src="{content>logo}" initials="{content>initials}"
                                                 displaySize="S" displayShape="Square"
+                                                imageFitType="Contain"
                                                 class="sapUiSmallMarginEnd"/>
                                             <FlexBox direction="Column">
                                                 <Title text="{content>client}" level="H5"/>
@@ -135,6 +136,7 @@
                                         <FlexBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom">
                                             <Avatar src="{content>logo}" initials="{content>initials}"
                                                 displaySize="S" displayShape="Square"
+                                                imageFitType="Contain"
                                                 class="sapUiSmallMarginEnd"/>
                                             <FlexBox direction="Column">
                                                 <Title text="{content>client}" level="H5"/>
