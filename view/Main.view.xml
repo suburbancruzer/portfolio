@@ -114,27 +114,35 @@
                             <uxap:ObjectPageSubSection title="{i18n>subsection.projects.current}">
                                 <List id="projectCurrentList" showSeparators="Inner"
                                     items="{content>/projects_current}">
-                                    <ObjectListItem
-                                        title="{content>client}"
-                                        intro="{content>period}"
-                                        type="Inactive">
-                                        <attributes>
-                                            <ObjectAttribute text="{content>description}"/>
-                                        </attributes>
-                                    </ObjectListItem>
+                                    <CustomListItem type="Inactive">
+                                        <FlexBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom">
+                                            <Avatar src="{content>logo}" initials="{content>initials}"
+                                                displaySize="S" displayShape="Square"
+                                                class="sapUiSmallMarginEnd"/>
+                                            <FlexBox direction="Column">
+                                                <Title text="{content>client}" level="H5"/>
+                                                <Text text="{content>period}" class="sapUiTinyMarginBottom"/>
+                                                <Text text="{content>description}" wrapping="true"/>
+                                            </FlexBox>
+                                        </FlexBox>
+                                    </CustomListItem>
                                 </List>
                             </uxap:ObjectPageSubSection>
                             <uxap:ObjectPageSubSection title="{i18n>subsection.projects.earlier}">
                                 <List id="projectEarlierList" showSeparators="Inner"
                                     items="{content>/projects_earlier}">
-                                    <ObjectListItem
-                                        title="{content>client}"
-                                        intro="{content>period}"
-                                        type="Inactive">
-                                        <attributes>
-                                            <ObjectAttribute text="{content>description}"/>
-                                        </attributes>
-                                    </ObjectListItem>
+                                    <CustomListItem type="Inactive">
+                                        <FlexBox alignItems="Center" class="sapUiSmallMarginBeginEnd sapUiTinyMarginTopBottom">
+                                            <Avatar src="{content>logo}" initials="{content>initials}"
+                                                displaySize="S" displayShape="Square"
+                                                class="sapUiSmallMarginEnd"/>
+                                            <FlexBox direction="Column">
+                                                <Title text="{content>client}" level="H5"/>
+                                                <Text text="{content>period}" class="sapUiTinyMarginBottom"/>
+                                                <Text text="{content>description}" wrapping="true"/>
+                                            </FlexBox>
+                                        </FlexBox>
+                                    </CustomListItem>
                                 </List>
                             </uxap:ObjectPageSubSection>
                         </uxap:subSections>

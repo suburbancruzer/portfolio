@@ -90,12 +90,20 @@ function pageToCareer(p) {
         description_de: getRichText(pr.description_de)
     };
 }
+function projectInitials(name) {
+    return name.replace(/\b(GmbH|AG|Ltd|Inc|Co)\b/g, "").trim()
+        .split(/[\s\/\-–]+/).filter(Boolean).map(w => w[0].toUpperCase()).join("").substring(0, 2);
+}
 function pageToProject(p) {
     const pr = p.properties;
+    const client      = getRichText(pr.client);
+    const logo_domain = getRichText(pr.logo_domain);
     return {
         order:          getNumber(pr.order),
         current:        pr.current?.checkbox ?? false,
-        client:         getRichText(pr.client),
+        client,
+        logo:           logo_domain ? "https://logo.clearbit.com/" + logo_domain : "",
+        initials:       projectInitials(client),
         period_en:      getRichText(pr.period_en),
         period_de:      getRichText(pr.period_de),
         description_en: getRichText(pr.description_en),
@@ -208,11 +216,15 @@ function buildContent(lang, profile, career, projects, education, certs, skills)
         })),
         projects_current: projects.filter(p => p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
+            logo:        p.logo,
+            initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
         })),
         projects_earlier: projects.filter(p => !p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
+            logo:        p.logo,
+            initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
         })),
