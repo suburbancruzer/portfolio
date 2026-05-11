@@ -77,13 +77,15 @@ function getNumber(prop) {
 
 function pageToCareer(p) {
     const pr = p.properties;
+    const company_en = getRichText(pr.company);
     return {
         order:          getNumber(pr.order),
         year_en:        getRichText(pr.year_en),
         year_de:        getRichText(pr.year_de),
         role_en:        getRichText(pr.role_en),
         role_de:        getRichText(pr.role_de),
-        company:        getRichText(pr.company),
+        company_en:     company_en,
+        company_de:     getRichText(pr.company_de) || company_en,
         description_en: getRichText(pr.description_en),
         description_de: getRichText(pr.description_de)
     };
@@ -183,7 +185,7 @@ function buildContent(lang, profile, career, projects, education, certs) {
         career: career.sort((a,b) => a.order-b.order).map(c => ({
             year:        c["year_" + l] || c.year_en,
             role:        c["role_" + l],
-            company:     c.company,
+            company:     c["company_" + l] || c.company_en,
             description: c["description_" + l]
         })),
         projects: projects.sort((a,b) => a.order-b.order).map(p => ({
