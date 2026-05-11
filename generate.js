@@ -257,14 +257,14 @@ function buildContent(lang, profile, career, projects, education, certs, skills)
         })),
         projects_current: projects.filter(p => p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo_domain ? "img/logos/" + p.logo_domain + ".png" : "",
+            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + ".png" : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
         })),
         projects_earlier: projects.filter(p => !p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo_domain ? "img/logos/" + p.logo_domain + ".png" : "",
+            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + ".png" : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
