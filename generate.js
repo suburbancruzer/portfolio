@@ -48,6 +48,10 @@ function notionRequest(method, path, body) {
     });
 }
 
+async function fetchPage(pageId) {
+    return notionRequest("GET", "/v1/pages/" + pageId);
+}
+
 async function queryDatabase(dbId) {
     const results = [];
     let cursor = undefined;
@@ -212,22 +216,20 @@ function availabilityText(status, availableFrom, lang) {
 function pageToProfile(p) {
     const pr = p.properties;
     return {
-        name:            getRichText(pr.name),
-        title:           getRichText(pr.job_title),
-        subtitle_en:     getRichText(pr.subtitle_en),
-        subtitle_de:     getRichText(pr.subtitle_de),
-        availability_en: getRichText(pr.availability_en),
-        availability_de: getRichText(pr.availability_de),
-        location_en:     getRichText(pr.location_en),
-        location_de:     getRichText(pr.location_de),
-        email:           getRichText(pr.email),
-        profileText_en:  getRichText(pr.profileText_en),
-        profileText_de:  getRichText(pr.profileText_de),
-        skills_hcm:      getRichText(pr.skills_hcm),
-        skills_fiori:    getRichText(pr.skills_fiori),
-        skills_agile:    getRichText(pr.skills_agile),
-        status:          pr.status?.select?.name || "available",
-        available_from:  pr.available_from?.date?.start || null
+        name:           getRichText(pr.name),
+        title:          getRichText(pr.job_title),
+        subtitle_en:    getRichText(pr.subtitle_en),
+        subtitle_de:    getRichText(pr.subtitle_de),
+        location_en:    getRichText(pr.location_en),
+        location_de:    getRichText(pr.location_de),
+        email:          getRichText(pr.email),
+        profileText_en: getRichText(pr.profileText_en),
+        profileText_de: getRichText(pr.profileText_de),
+        skills_hcm:     getRichText(pr.skills_hcm),
+        skills_fiori:   getRichText(pr.skills_fiori),
+        skills_agile:   getRichText(pr.skills_agile),
+        status:         pr.status?.select?.name || "available",
+        available_from: pr.available_from?.date?.start || null
     };
 }
 
@@ -394,25 +396,6 @@ async function setup() {
 
     // Database schemas
     const dbDefs = {
-        profile: {
-            name: "Profile",
-            props: {
-                name:            { rich_text: {} },
-                job_title:       { rich_text: {} },
-                subtitle_en:     { rich_text: {} },
-                subtitle_de:     { rich_text: {} },
-                availability_en: { rich_text: {} },
-                availability_de: { rich_text: {} },
-                location_en:     { rich_text: {} },
-                location_de:     { rich_text: {} },
-                email:           { rich_text: {} },
-                profileText_en:  { rich_text: {} },
-                profileText_de:  { rich_text: {} },
-                skills_hcm:      { rich_text: {} },
-                skills_fiori:    { rich_text: {} },
-                skills_agile:    { rich_text: {} }
-            }
-        },
         career: {
             name: "Career",
             props: {
@@ -459,47 +442,71 @@ async function setup() {
         }
     };
 
-    const dbIds = {};
-    for (const [key, def] of Object.entries(dbDefs)) {
-        // Profile DB uses "role_title" as the title property; all others use "Name"
-        const titlePropName = key === "profile" ? "role_title" : "Name";
-        const db = await notionRequest("POST", "/v1/databases", {
-            parent: { type: "page_id", page_id: rootId },
-            title: richText(def.name),
-            properties: {
-                [titlePropName]: { title: {} },
-                ...def.props
-            }
-        });
-        dbIds[key] = db.id;
-        console.log("  ✓ DB created: " + def.name + " (" + db.id + ")");
-    }
+    // Profile: single page with a minimal inline DB (properties require a DB parent in Notion)
+    const profileDb = await notionRequest("POST", "/v1/databases", {
+        parent: { type: "page_id", page_id: rootId },
+        title: richText("Profile"),
+        is_inline: true,
+        properties: {
+            role_title:     { title: {} },
+            name:           { rich_text: {} },
+            job_title:      { rich_text: {} },
+            subtitle_en:    { rich_text: {} },
+            subtitle_de:    { rich_text: {} },
+            location_en:    { rich_text: {} },
+            location_de:    { rich_text: {} },
+            email:          { rich_text: {} },
+            profileText_en: { rich_text: {} },
+            profileText_de: { rich_text: {} },
+            skills_hcm:     { rich_text: {} },
+            skills_fiori:   { rich_text: {} },
+            skills_agile:   { rich_text: {} },
+            status:         { select: { options: [
+                { name: "available", color: "green" },
+                { name: "limited",   color: "yellow" },
+                { name: "booked",    color: "red" }
+            ]}},
+            available_from: { date: {} }
+        }
+    });
+    console.log("  ✓ Profile DB created (inline): " + profileDb.id);
 
     // Populate with current content
     const en = JSON.parse(fs.readFileSync(path.join(ROOT, "model/content_en.json"), "utf8"));
     const de = JSON.parse(fs.readFileSync(path.join(ROOT, "model/content_de.json"), "utf8"));
 
-    // Profile row — role_title is the title-type property (Notion page display name)
-    await notionRequest("POST", "/v1/pages", {
-        parent: { database_id: dbIds.profile },
+    const profilePage = await notionRequest("POST", "/v1/pages", {
+        parent: { database_id: profileDb.id },
         properties: {
-            role_title:      { title: richText(en.name) },
-            name:            { rich_text: richText(en.name) },
-            job_title:       { rich_text: richText(en.title) },
-            subtitle_en:     { rich_text: richText(en.subtitle) },
-            subtitle_de:     { rich_text: richText(de.subtitle) },
-            availability_en: { rich_text: richText(en.availability) },
-            availability_de: { rich_text: richText(de.availability) },
-            location_en:     { rich_text: richText(en.location) },
-            location_de:     { rich_text: richText(de.location) },
-            email:           { rich_text: richText(en.email) },
-            profileText_en:  { rich_text: richText(en.profileText) },
-            profileText_de:  { rich_text: richText(de.profileText) },
-            skills_hcm:      { rich_text: richText(en.skills.hcm.join(", ")) },
-            skills_fiori:    { rich_text: richText(en.skills.fiori.join(", ")) },
-            skills_agile:    { rich_text: richText(en.skills.agile.join(", ")) }
+            role_title:     { title: richText(en.name) },
+            name:           { rich_text: richText(en.name) },
+            job_title:      { rich_text: richText(en.title) },
+            subtitle_en:    { rich_text: richText(en.subtitle) },
+            subtitle_de:    { rich_text: richText(de.subtitle) },
+            location_en:    { rich_text: richText(en.location) },
+            location_de:    { rich_text: richText(de.location) },
+            email:          { rich_text: richText(en.email) },
+            profileText_en: { rich_text: richText(en.profileText) },
+            profileText_de: { rich_text: richText(de.profileText) },
+            skills_hcm:     { rich_text: richText(en.skills.hcm.join(", ")) },
+            skills_fiori:   { rich_text: richText(en.skills.fiori.join(", ")) },
+            skills_agile:   { rich_text: richText(en.skills.agile.join(", ")) },
+            status:         { select: { name: "available" } }
         }
     });
+    const profilePageId = profilePage.id;
+    console.log("  ✓ Profile page created: " + profilePageId);
+
+    const dbIds = {};
+    for (const [key, def] of Object.entries(dbDefs)) {
+        const db = await notionRequest("POST", "/v1/databases", {
+            parent: { type: "page_id", page_id: rootId },
+            title: richText(def.name),
+            properties: { Name: { title: {} }, ...def.props }
+        });
+        dbIds[key] = db.id;
+        console.log("  ✓ DB created: " + def.name + " (" + db.id + ")");
+    }
 
     // Career rows
     for (let i = 0; i < en.career.length; i++) {
@@ -570,7 +577,7 @@ async function setup() {
     }
 
     // Save config
-    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ rootPageId: rootId, dbIds }, null, 2));
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify({ rootPageId: rootId, profilePageId, dbIds }, null, 2));
     console.log("\n✓ Setup complete! Config saved to notion.config.json");
     console.log("  Notion page: https://notion.so/" + rootId.replace(/-/g, ""));
     console.log("\nNow run: node generate.js");
@@ -583,12 +590,12 @@ async function generate() {
         console.error("notion.config.json not found. Run: node generate.js --setup");
         process.exit(1);
     }
-    const { dbIds } = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
+    const { profilePageId, dbIds } = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf8"));
 
     console.log("Fetching from Notion…");
 
-    const [profilePages, careerPages, projectPages, educationPages, certPages, skillPages] = await Promise.all([
-        queryDatabase(dbIds.profile),
+    const [profilePage, careerPages, projectPages, educationPages, certPages, skillPages] = await Promise.all([
+        fetchPage(profilePageId),
         queryDatabase(dbIds.career),
         queryDatabase(dbIds.projects),
         queryDatabase(dbIds.education),
@@ -596,7 +603,7 @@ async function generate() {
         queryDatabase(dbIds.skills)
     ]);
 
-    const profile   = pageToProfile(profilePages[0]);
+    const profile   = pageToProfile(profilePage);
     const career    = careerPages.map(pageToCareer);
     const projects  = projectPages.map(pageToProject);
     const education = educationPages.map(pageToEducation);
