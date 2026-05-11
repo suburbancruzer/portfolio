@@ -133,14 +133,21 @@ function downloadLogo(domain, destPath) {
     });
 }
 
+function logoExt(domain) {
+    const logoDir = path.join(ROOT, "img", "logos");
+    if (fs.existsSync(path.join(logoDir, domain + ".svg"))) return ".svg";
+    if (fs.existsSync(path.join(logoDir, domain + ".png"))) return ".png";
+    return null;
+}
+
 async function syncLogos(projects) {
     const logoDir = path.join(ROOT, "img", "logos");
     if (!fs.existsSync(logoDir)) fs.mkdirSync(logoDir, { recursive: true });
     let downloaded = 0;
     for (const p of projects) {
         if (!p.logo_domain) continue;
+        if (logoExt(p.logo_domain)) continue; // already have svg or png
         const dest = path.join(logoDir, p.logo_domain + ".png");
-        if (fs.existsSync(dest)) continue;
         try {
             await downloadLogo(p.logo_domain, dest);
             console.log("  ✓ logo: " + p.logo_domain);
@@ -257,14 +264,14 @@ function buildContent(lang, profile, career, projects, education, certs, skills)
         })),
         projects_current: projects.filter(p => p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + ".png" : "",
+            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + (logoExt(p.logo_domain) || ".png") : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
         })),
         projects_earlier: projects.filter(p => !p.current).sort((a,b) => a.order-b.order).map(p => ({
             client:      p.client,
-            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + ".png" : "",
+            logo:        p.logo_domain ? "/img/logos/" + p.logo_domain + (logoExt(p.logo_domain) || ".png") : "",
             initials:    p.initials,
             period:      p["period_" + l],
             description: p["description_" + l]
