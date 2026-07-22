@@ -77,49 +77,63 @@
       "logo": "/img/logos/boehringer-ingelheim.com.png",
       "initials": "BI",
       "period": "2024 – heute",
-      "description": "Globaler CATS Rollout Deutschland — Solution Architect & Process Expert"
+      "project_title": "",
+      "description": "Globaler CATS Rollout Deutschland — Solution Architect & Process Expert",
+      "skills": ""
     },
     {
       "client": "Wien IT GmbH",
       "logo": "/img/logos/wienit.at.png",
       "initials": "WI",
-      "period": "2021 – heute",
-      "description": "E2E HR-Digitalisierung für 10.000+ Mitarbeiter (ESS/MSS, Fiori, OData/CDS)"
+      "period": "2021 - 2024",
+      "project_title": "E2E Services",
+      "description": "Digitalisierung mehrerer HR Prozesse im WSTW Konzern mit über 10.000 Mitarbeiter*innen mittels SAP HCM Processes & Forms - wie:\nFührerscheinkontrolle\nNeues Kind hinzufügen\nPensionskasse beantragen\nFamilienbonus\nHomeoffice\nKrankenstandsmeldung",
+      "skills": "SAP HCM (PA, OM, ESS, MSS, Processes & Forms), Business Workflow, SAP UI5, Fiori, CDS, Odata, Web Dynpro ABAP (inkl. FPM), ABAP OO"
     },
     {
       "client": "VIG / Wr. Städtische",
       "logo": "/img/logos/vig.com.png",
       "initials": "VW",
       "period": "2024 – heute",
-      "description": "Prozesse & Formulare, PDF-Formulare, Fiori ESS/MSS, Abrechnungstools"
+      "project_title": "",
+      "description": "Prozesse & Formulare, PDF-Formulare, Fiori ESS/MSS, Abrechnungstools",
+      "skills": ""
     },
     {
       "client": "ASFINAG",
       "logo": "/img/logos/asfinag.at.svg",
       "initials": "A",
-      "period": "2021 – 2024",
-      "description": "Fiori Prozessdigitalisierung — Fast & Fiori Team"
+      "period": "2021 - 2024",
+      "project_title": "Fast & Fiori Team",
+      "description": "Umsetzung von unterschiedlichen Fiori Produkten im Rahmen eines Scrum Teams zur digitalisierung folgender Prozesse:\nLogistik & Vertrieb von Klebevignetten, Anlagenworkflows, Durchführung von Bezahlungen aus dem SAP heraus, Bestellung von Dienstbekleidungen\nUnterstützung bei der S/4 HANA Konvertierung",
+      "skills": "Scrum, Design Thinking, SAP UI5, Odata, ABAP OO, Fiori, CDS, RAP, Business Workflow"
     },
     {
       "client": "IT-Services der Sozialversicherung",
       "logo": "/img/logos/itsv.at.png",
       "initials": "IS",
-      "period": "2014 – 2020",
-      "description": "HR Renewal, ESS/MSS, PDF-Formulare"
+      "period": "2014 - 2020",
+      "project_title": "Einführung HR Renewal",
+      "description": "App zur automatischen Anlage von Arbeitszeitplanregeln\nEinführung ESS/MSS - Template\nEinführung PDF basierte Kundenformulare\nLaufende Betreuung & Wartung",
+      "skills": "ESS/MSS, HR Renewal, PA, PY, PT; OM,  ABAP OO, Web Dynpro ABAP (inkl. FPM), SAP UI5, SAP BUILD, Fiori"
     },
     {
       "client": "Heinzel Holding",
       "logo": "/img/logos/heinzelgroup.com.png",
       "initials": "HH",
       "period": "2021",
-      "description": "Fiori MES Apps basierend auf SAP PP für Papiermaschinen (Rollenschneider, Papiermaschine)"
+      "project_title": "Fiori MES",
+      "description": "Umsetzung von einem Set an kundeneigenen Fiori (UI5) Apps, basierend auf SAP PP für unterschiedliche Maschinen (wie Rollenschneider oder Papiermaschine)",
+      "skills": "SAP UI5, Odata, ABAP OO, Fiori, CDS"
     },
     {
       "client": "HOERBIGER Holding GmbH",
       "logo": "/img/logos/hoerbiger.com.png",
       "initials": "HH",
       "period": "2025",
-      "description": "Processes & Forms Entwicklung und Web Dynpro ABAP Anpassungen (4-Augen-Prinzip, Genehmigungsworkflows)."
+      "project_title": "",
+      "description": "",
+      "skills": ""
     }
   ],
   "projects_earlier": [
@@ -127,71 +141,100 @@
       "client": "PORR AG",
       "logo": "/img/logos/porr.at.png",
       "initials": "P",
-      "period": "2017 – 2019",
-      "description": "Fiori-App zur Erfassung von Spesenabrechnungen (Travel, PA, Business Workflow, Scrum)"
+      "period": "2017-2019",
+      "project_title": "Fiori App zur Erfassung von Spesenabrechnungen",
+      "description": "",
+      "skills": "Odata, ABAP OO, Fiori, PA, Travel, Business Workflow, Scrum"
     },
     {
       "client": "HOERBIGER Holding GmbH",
       "logo": "/img/logos/hoerbiger.com.png",
       "initials": "HH",
-      "period": "2016 – 2018",
-      "description": "4-Augen-Prinzip auf Basis Processes & Forms (Web Dynpro ABAP, Business Workflow)"
+      "period": "2016-2018",
+      "project_title": "4 Augen Prinzip (auf Basis Processes & Forms)",
+      "description": "",
+      "skills": "Processes & Forms, Web Dynpro ABAP (inkl. FPM), Business Workflow"
     },
     {
       "client": "APG",
       "logo": "/img/logos/apg.at.png",
       "initials": "A",
       "period": "2020",
-      "description": "Processes & Forms (ESS/MSS) – Release 1"
+      "project_title": "Processes & Forms (ESS/MSS) – Release 1",
+      "description": "",
+      "skills": "ESS/MSS, Processes & Forms, Business Workflow"
     },
     {
       "client": "CNT Management Consulting",
       "logo": "/img/logos/cnt-online.com.png",
       "initials": "CM",
       "period": "2019",
-      "description": "Interne Fiori-App zur CATS-Erfassung mit integrierter Kapazitätsplanung"
+      "project_title": "Fiori App zur CATS Erfassung mit integrierter Kapazitätsplanung",
+      "description": "",
+      "skills": "Design Thinking, Scrum, Fiori, Odata, CATS, UX"
     },
     {
       "client": "Stadt Wien – WRKWS",
       "logo": "/img/logos/wien.gv.at.png",
       "initials": "SW",
-      "period": "2016 – 2017",
-      "description": "Einführung SAP HCM S/4 HANA ESS/MSS auf Basis HR Renewal"
+      "period": "2016-2017",
+      "project_title": "Einführung SAP HCM S/4 HANA",
+      "description": "",
+      "skills": "ESS/MSS (auf Basis HR Renewal), HR, ABAP OO, Web Dynpro ABAP (inkl. FPM), SAP UI5"
     },
     {
       "client": "RHI",
       "logo": "/img/logos/rhimagnesita.com.svg",
       "initials": "R",
-      "period": "2012 – 2016",
-      "description": "Diverse Anpassungen und Neuentwicklungen im HR ESS/MSS"
+      "period": "2012-2016",
+      "project_title": "Diverse Anpassungen/Neuentwicklungen im HR",
+      "description": "",
+      "skills": "ESS/MSS; HR, ABAP, CATS, Web Dynpro ABAP"
     },
     {
       "client": "Wiener Gebietskrankenkasse",
       "logo": "/img/logos/oegk.at.png",
       "initials": "WG",
-      "period": "2011 – 2014",
-      "description": "Überstundengenehmigung ESS/MSS; Anbindung an die SV Briefbox"
+      "period": "2011-2014",
+      "project_title": "Überstundengenehmigung",
+      "description": "ESS/MSS\nAnbindung an die SV Briefbox",
+      "skills": "ESS/MSS, Processes & Forms, ABAP OO, Adobe Forms, Web Dynpro ABAP (inkl. FPM), Webservice"
     },
     {
       "client": "Boehringer Ingelheim Austria",
       "logo": "/img/logos/boehringer-ingelheim.com.png",
       "initials": "BI",
       "period": "2010 – 2013",
-      "description": "SAP BDE Integration, TMnet Schnittstelle, Russische Formulare, WMPlus"
+      "project_title": "SAP BDE Integration",
+      "description": "TMnet Schnittstelle\nRussische Formulare\nWMPlus",
+      "skills": "CATS, ABAP OO, BSP (MVC), HR, ALE, MM, SD, Adobe Forms, Web Dynpro"
     },
     {
       "client": "RWA",
       "logo": "/img/logos/rwa.at.png",
       "initials": "R",
-      "period": "2010 – 2012",
-      "description": "Administration von Rohstoffkursen zur Bewertung von gehandelten Materialien"
+      "period": "2010 –2012",
+      "project_title": "Applikation zur Administration von Rohstoffkursen zur Bewertung von gehandelten Materialien.",
+      "description": "",
+      "skills": "TR, MM, ABAP OO"
     },
     {
       "client": "Telekom Austria / A1",
       "logo": "/img/logos/a1.net.png",
       "initials": "TA",
       "period": "2008 – 2012",
-      "description": "PeroLo — Performanceoptimierung Logistik, Merger (SD, PS, ALE, MM)"
+      "project_title": "PeroLo (Performanceoptimierung Logistik):",
+      "description": "Merger",
+      "skills": "SD, PS, ALE, MM,  ABAP"
+    },
+    {
+      "client": "Wr. Städtische",
+      "logo": "",
+      "initials": "WS",
+      "period": "2010-2020",
+      "project_title": "ESS/MSS Funktionalitäten",
+      "description": "Automatische Buchungsüberleitung an Behörden",
+      "skills": "ESS/MSS, HR, Adobe Forms, ABAP OO, Web Dynpro ABAP (inkl. FPM)"
     }
   ],
   "education": [
